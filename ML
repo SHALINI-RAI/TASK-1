@@ -1,0 +1,70 @@
+# TASK :PREDICTION USING SUPERVISED ML
+# Linear Regression with Python Scikit Learn
+
+# Importing the libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+# Importing the CSV dataset using pandas
+dataset=pd.read_csv('C:/Users/Rai/Desktop/student_scores.csv')
+dataset.shape
+(This means that our dataset has 25 rows and 2 columns)
+dataset.head()
+(This method retrieves the first 5 records from our dataset)
+dataset.describe()
+(This is used to see the statistical details of the dataset)
+
+# Plotting of Graph
+(To plot our points use the following script)
+dataset.plot(x='Hours', y='Scores', style='o')
+plt.title('Hours vs Percentage')
+plt.xlabel('Hours Studied')
+plt.ylabel('Percentage Score')
+plt.show()
+(From the obtained graph it is seen that there is a positive linear relation between the number of hours studied and percentage of score)
+
+# Preparing the Data
+(Now we extract the attributes and labels)
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, 1].values
+
+(Now we split this data into training and test sets by using Scikit-Learn's built-in train_test_split() method)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+
+# Training the Algorithm
+
+(Finally training our algorithm)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+(Retrieving the intercept)
+print(regressor.intercept_)
+
+(Retrieving the slope)
+print(regressor.coef_)
+
+#Making Predictions
+
+y_pred = regressor.predict(X_test)
+(The y_pred is a numpy array that contains all the predicted values for the input values in the X_test series)
+
+
+(Comparing the actual output values for X_test with the predicted values)
+df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+df
+
+# Evaluating the Algorithm
+
+(Finding the values for these metrics using our test data
+from sklearn import metrics)
+print('Mean Absolute Error:', metrics. mean_absolute_error (y_test, y_pred))
+print('Mean Squared Error:', metrics. mean_squared_error (y_test, y_pred))
+print('Root Mean Squared Error:', np.sqrt (metrics.mean_squared_error(y_test, y_pred)))
+
+
+# THANK YOU
